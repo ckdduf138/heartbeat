@@ -1,0 +1,252 @@
+@import "tailwindcss";
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css');
+
+/* 커스텀 색상 정의 */
+@theme {
+  --color-primary: #3ed4be;
+  --color-primary-dark: #2ab5a0;
+  --color-primary-light: #6fe5d1;
+  --color-secondary: #ffffff;
+  --color-accent: #ff6b9d;
+  
+  --font-sans: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+}
+
+/* 글로벌 스타일 */
+body {
+  background-color: #f8f9fa;
+  color: #1a1a1a;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* 스크롤바 스타일 (카카오톡 스타일) */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+/* 커스텀 컴포넌트 스타일 */
+.btn-primary {
+  background: linear-gradient(135deg, #3ed4be 0%, #2ab5a0 100%);
+  color: white;
+  font-weight: 600;
+  padding: 0.875rem 1.75rem;
+  border-radius: 12px;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(62, 212, 190, 0.3);
+  border: none;
+}
+
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(62, 212, 190, 0.4);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn-secondary {
+  background-color: white;
+  color: #3ed4be;
+  font-weight: 600;
+  padding: 0.875rem 1.75rem;
+  border-radius: 12px;
+  border: 2px solid #3ed4be;
+  transition: all 0.2s ease;
+}
+
+.btn-secondary:hover {
+  background-color: #3ed4be;
+  color: white;
+  transform: translateY(-1px);
+}
+
+.btn-secondary:active {
+  transform: translateY(0);
+}
+
+.btn-accent {
+  background: linear-gradient(135deg, #ff6b9d 0%, #ff8ab4 100%);
+  color: white;
+  font-weight: 600;
+  padding: 0.875rem 1.75rem;
+  border-radius: 12px;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(255, 107, 157, 0.3);
+  border: none;
+}
+
+.btn-accent:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(255, 107, 157, 0.4);
+}
+
+.btn-accent:active {
+  transform: translateY(0);
+}
+
+.card {
+  background-color: white;
+  border-radius: 16px;
+  padding: 1.25rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  transition: all 0.2s ease;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+.card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  transform: translateY(-2px);
+}
+
+.input-field {
+  width: 100%;
+  padding: 0.875rem 1rem;
+  border: 1.5px solid #e1e8ed;
+  border-radius: 12px;
+  transition: all 0.2s ease;
+  background-color: #f8f9fa;
+  font-size: 15px;
+}
+
+.input-field:focus {
+  border-color: #3ed4be;
+  outline: none;
+  background-color: white;
+  box-shadow: 0 0 0 3px rgba(62, 212, 190, 0.1);
+}
+
+.profile-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 20px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  background: linear-gradient(to bottom, transparent 60%, rgba(0, 0, 0, 0.7));
+}
+
+.gradient-primary {
+  background: linear-gradient(135deg, #3ed4be 0%, #2ab5a0 100%);
+}
+
+.gradient-accent {
+  background: linear-gradient(135deg, #ff6b9d 0%, #ff8ab4 100%);
+}
+
+.gradient-purple {
+  background: linear-gradient(135deg, #a78bfa 0%, #7c3aed 100%);
+}
+
+.text-gradient {
+  background: linear-gradient(135deg, #3ed4be 0%, #ff6b9d 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.safe-area-top {
+  padding-top: env(safe-area-inset-top);
+}
+
+.safe-area-bottom {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* 애니메이션 */
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-slide-up {
+  animation: slideUp 0.3s ease-out;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* 뱃지 스타일 */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.badge-primary {
+  background-color: rgba(62, 212, 190, 0.1);
+  color: #2ab5a0;
+}
+
+.badge-accent {
+  background-color: rgba(255, 107, 157, 0.1);
+  color: #ff6b9d;
+}
+
+/* 스와이프 인디케이터 */
+.swipe-indicator {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 4rem;
+  opacity: 0;
+  transition: opacity 0.2s;
+  pointer-events: none;
+}
+
+.swipe-indicator.left {
+  left: 2rem;
+  color: #ef4444;
+}
+
+.swipe-indicator.right {
+  right: 2rem;
+  color: #3ed4be;
+}
+
+
+
