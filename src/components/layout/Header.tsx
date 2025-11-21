@@ -1,5 +1,6 @@
 
 import { Heart, Users, MessageCircle, User } from 'lucide-react';
+import type { ReactNode } from 'react';
 
 interface HeaderProps {
   title?: string;

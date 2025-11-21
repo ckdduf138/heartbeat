@@ -4,7 +4,7 @@ import { Header } from '@/components/layout/Header';
 import { BottomNav } from '@/components/layout/BottomNav';
 import { Button } from '@/components/common/Button';
 import { idealTypeQuestions, idealTypeResults } from '@/data/idealTypes';
-import { ChevronLeft, ChevronRight, Heart } from 'lucide-react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 export const IdealTypeTest: React.FC = () => {
   const navigate = useNavigate();
@@ -45,12 +45,6 @@ export const IdealTypeTest: React.FC = () => {
       setCurrentQuestion(currentQuestion - 1);
       setAnswers(answers.slice(0, -1));
     }
-  };
-
-  const restartTest = () => {
-    setCurrentQuestion(0);
-    setAnswers([]);
-    setResult(null);
   };
 
   if (result) {

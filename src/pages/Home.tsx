@@ -60,7 +60,7 @@ export const Home: React.FC = () => {
           className="inline-block px-7 py-3 rounded-full bg-gradient-to-r from-primary to-primary-dark text-white font-bold shadow-md text-base transition hover:scale-105 active:scale-95"
           style={{ background: 'linear-gradient(90deg, #3ed4be 0%, #2ab5a0 100%)' }}
         >
-          이상형 MBTI 다시 하러가기
+          이상형 MBTI 하러가기
         </Link>
       </div>
     </div>
