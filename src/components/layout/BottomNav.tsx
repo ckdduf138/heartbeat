@@ -12,25 +12,28 @@ export const BottomNav = () => {
   ];
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 h-16 bg-white border-t border-gray-200 flex items-center justify-around z-50 safe-area-bottom">
-      {navItems.map((item) => {
-        const isActive = location.pathname === item.path;
-        const IconComponent = item.icon;
-        return (
-          <Link
-            key={item.path}
-            to={item.path}
-            className={`flex flex-col items-center justify-center flex-1 h-full transition-colors ${
-              isActive ? 'text-primary' : 'text-gray-400'
-            }`}
-          >
-            <span className="flex items-center justify-center min-w-[32px] min-h-[32px] flex-shrink-0">
-              <IconComponent size={28} className="mb-1" style={{ display: 'block', lineHeight: 1 }} />
-            </span>
-            <span className="text-xs font-medium">{item.label}</span>
-          </Link>
-        );
-      })}
+    <nav className="fixed bottom-0 left-0 right-0 bg-white flex flex-col z-50 safe-area-bottom">
+      <div className="border-t border-gray-200 w-full h-0"></div>
+      <div className="h-16 flex items-center justify-around">
+        {navItems.map((item) => {
+          const isActive = location.pathname === item.path;
+          const IconComponent = item.icon;
+          return (
+            <Link
+              key={item.path}
+              to={item.path}
+              className={`flex flex-col items-center justify-center flex-1 h-full transition-colors ${
+                isActive ? 'text-primary' : 'text-gray-400'
+              }`}
+            >
+              <span className="flex items-center justify-center min-w-[32px] min-h-[32px] flex-shrink-0">
+                <IconComponent size={28} className="mb-1" style={{ display: 'block', lineHeight: 1 }} />
+              </span>
+              <span className="text-xs font-medium">{item.label}</span>
+            </Link>
+          );
+        })}
+      </div>
     </nav>
   );
 };
