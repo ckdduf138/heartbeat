@@ -1,21 +1,18 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Heart } from 'lucide-react';
 
-interface SplashProps {
-  onFinish: () => void;
-}
-
-export const Splash = ({ onFinish }: SplashProps) => {
+export const Splash = () => {
   const [isAnimating, setIsAnimating] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsAnimating(false);
-      setTimeout(onFinish, 300);
+      setTimeout(() => navigate('/home', { replace: true }), 300);
     }, 2000);
-
     return () => clearTimeout(timer);
-  }, [onFinish]);
+  }, [navigate]);
 
   return (
     <div

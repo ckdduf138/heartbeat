@@ -10,11 +10,12 @@ import { IdealTypeTest } from '@/pages/IdealTypeTest';
 
 
 function App() {
-  const [showSplash, setShowSplash] = useState(true);
-  const [isReady, setIsReady] = useState(false);
   const location = typeof window !== 'undefined' ? window.location : { pathname: '/' };
+    // const [showSplash, setShowSplash] = useState(true);
+  const [isReady, setIsReady] = useState(false);
 
-  // 이상형 테스트 경로에서는 splash를 건너뜀
+  // splash는 / 경로에서만 보임
+  const isSplashRoute = location.pathname === '/';
   const isIdealTypeRoute =
     location.pathname.startsWith('/ideal-type-test') ||
     location.pathname.startsWith('/idealtype') ||
@@ -30,24 +31,24 @@ function App() {
 
   useEffect(() => {
     if (isIdealTypeRoute) {
-      setShowSplash(false);
       return;
     }
-    const timer = setTimeout(() => {
-      setShowSplash(false);
-    }, 2000);
-    return () => clearTimeout(timer);
-  }, [isIdealTypeRoute]);
-
-  const handleSplashFinish = () => {
-    if (isReady) {
-      setShowSplash(false);
+    if (isSplashRoute) {
+      const timer = setTimeout(() => {
+        if (typeof window !== 'undefined' && window.history && window.location) {
+          window.history.pushState({}, '', '/home');
+          window.dispatchEvent(new PopStateEvent('popstate'));
+        }
+      }, 2000);
+      return () => clearTimeout(timer);
     }
-  };
+  }, [isIdealTypeRoute, isSplashRoute]);
 
-  if (showSplash && !isIdealTypeRoute) {
-    return <Splash onFinish={handleSplashFinish} />;
-  }
+  // const handleSplashFinish = () => {
+  //   if (isReady) {
+  //     setShowSplash(false);
+  //   }
+  // };
 
   if (!isReady) {
     return null;
@@ -56,15 +57,14 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/" element={<Splash />} />
         {/* 레이아웃이 있는 페이지 */}
         <Route element={<Layout />}>
-          <Route path="/" element={<Home />} />
           <Route path="/home" element={<Home />} />
           <Route path="/match" element={<Match />} />
           <Route path="/chat" element={<Chat />} />
           <Route path="/mypage" element={<MyPage />} />
         </Route>
-        
         {/* 레이아웃이 없는 페이지 */}
         <Route path="/ideal-type-test" element={<IdealTypeTest />} />
         <Route path="/idealtype" element={<IdealTypeTest />} />
