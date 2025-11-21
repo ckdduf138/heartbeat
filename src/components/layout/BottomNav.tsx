@@ -24,7 +24,9 @@ export const BottomNav = () => {
               isActive ? 'text-primary' : 'text-gray-400'
             }`}
           >
-            <IconComponent size={24} className="mb-1" />
+            <span className="flex items-center justify-center min-w-[32px] min-h-[32px] flex-shrink-0">
+              <IconComponent size={28} className="mb-1" style={{ display: 'block', lineHeight: 1 }} />
+            </span>
             <span className="text-xs font-medium">{item.label}</span>
           </Link>
         );
