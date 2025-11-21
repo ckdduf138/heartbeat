@@ -27,7 +27,7 @@ export const Header = ({
     icon = <User size={24} className="text-primary" />;
   }
   return (
-    <header className="fixed top-0 left-0 right-0 h-16 bg-white border-b border-primary/10 flex items-center justify-start px-4 z-50 safe-area-top">
+    <header className="fixed top-0 left-0 right-0 h-16 bg-white border-b border-primary/10 flex items-center justify-start px-4 z-50">
       <div className="flex items-center gap-2">
         {icon}
         <span className="text-2xl font-extrabold text-primary-dark tracking-tight ml-2 select-none">{label}</span>
