@@ -11,11 +11,7 @@ interface HeaderProps {
 }
 
 export const Header = ({
-  title,
-  leftIcon,
-  rightIcon,
-  onLeftClick,
-  onRightClick,
+  title
 }: HeaderProps) => {
   // 각 페이지별 헤더 아이콘+타이틀
   let icon = null;
