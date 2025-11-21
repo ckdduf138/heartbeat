@@ -1,7 +1,7 @@
 {
   "name": "Heartbeat",
   "short_name": "Heartbeat",
-  "start_url": ".",
+  "start_url": "/",
   "display": "standalone",
   "background_color": "#3ED4BE",
   "theme_color": "#3ED4BE",
