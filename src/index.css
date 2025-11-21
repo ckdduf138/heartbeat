@@ -240,5 +240,8 @@ body {
   color: #3ed4be;
 }
 
-
+/* iOS 홈바 안전 영역 하단 패딩 */
+.safe-area-bottom {
+  padding-bottom: env(safe-area-inset-bottom);
+}
 

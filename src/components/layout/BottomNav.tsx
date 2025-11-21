@@ -12,7 +12,7 @@ export const BottomNav = () => {
   ];
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 h-16 bg-white border-t border-gray-200 flex items-center justify-around z-50">
+    <nav className="fixed bottom-0 left-0 right-0 h-16 bg-white border-t border-gray-200 flex items-center justify-around z-50 safe-area-bottom">
       {navItems.map((item) => {
         const isActive = location.pathname === item.path;
         const IconComponent = item.icon;
