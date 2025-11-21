@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { Layout } from '@/components/layout';
 import { Splash } from '@/components/common';
 import { Home } from '@/pages/Home';
@@ -9,9 +9,8 @@ import { MyPage } from '@/pages/MyPage';
 import { IdealTypeTest } from '@/pages/IdealTypeTest';
 
 
-function App() {
-  const location = typeof window !== 'undefined' ? window.location : { pathname: '/' };
-    // const [showSplash, setShowSplash] = useState(true);
+function InnerApp() {
+  const location = useLocation();
   const [isReady, setIsReady] = useState(false);
 
   // splash는 / 경로에서만 보임
@@ -35,41 +34,39 @@ function App() {
     }
     if (isSplashRoute) {
       const timer = setTimeout(() => {
-        if (typeof window !== 'undefined' && window.history && window.location) {
-          window.history.pushState({}, '', '/home');
-          window.dispatchEvent(new PopStateEvent('popstate'));
-        }
+        window.history.pushState({}, '', '/home');
+        window.dispatchEvent(new PopStateEvent('popstate'));
       }, 2000);
       return () => clearTimeout(timer);
     }
   }, [isIdealTypeRoute, isSplashRoute]);
-
-  // const handleSplashFinish = () => {
-  //   if (isReady) {
-  //     setShowSplash(false);
-  //   }
-  // };
 
   if (!isReady) {
     return null;
   }
 
   return (
+    <Routes>
+      <Route path="/" element={<Splash />} />
+      {/* 레이아웃이 있는 페이지 */}
+      <Route element={<Layout />}>
+        <Route path="/home" element={<Home />} />
+        <Route path="/match" element={<Match />} />
+        <Route path="/chat" element={<Chat />} />
+        <Route path="/mypage" element={<MyPage />} />
+      </Route>
+      {/* 레이아웃이 없는 페이지 */}
+      <Route path="/ideal-type-test" element={<IdealTypeTest />} />
+      <Route path="/idealtype" element={<IdealTypeTest />} />
+      <Route path="/ideal-type" element={<IdealTypeTest />} />
+    </Routes>
+  );
+}
+
+function App() {
+  return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Splash />} />
-        {/* 레이아웃이 있는 페이지 */}
-        <Route element={<Layout />}>
-          <Route path="/home" element={<Home />} />
-          <Route path="/match" element={<Match />} />
-          <Route path="/chat" element={<Chat />} />
-          <Route path="/mypage" element={<MyPage />} />
-        </Route>
-        {/* 레이아웃이 없는 페이지 */}
-        <Route path="/ideal-type-test" element={<IdealTypeTest />} />
-        <Route path="/idealtype" element={<IdealTypeTest />} />
-        <Route path="/ideal-type" element={<IdealTypeTest />} />
-      </Routes>
+      <InnerApp />
     </BrowserRouter>
   );
 }
