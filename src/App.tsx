@@ -7,6 +7,7 @@ import { Match } from '@/pages/Match';
 import { Chat } from '@/pages/Chat';
 import { MyPage } from '@/pages/MyPage';
 import { IdealTypeTest } from '@/pages/IdealTypeTest';
+import IdealTypeResult from '@/pages/IdealTypeResult';
 
 
 function InnerApp() {
@@ -59,6 +60,7 @@ function InnerApp() {
       <Route path="/ideal-type-test" element={<IdealTypeTest />} />
       <Route path="/idealtype" element={<IdealTypeTest />} />
       <Route path="/ideal-type" element={<IdealTypeTest />} />
+      <Route path="/idealTypeResult" element={<IdealTypeResult />} />
     </Routes>
   );
 }

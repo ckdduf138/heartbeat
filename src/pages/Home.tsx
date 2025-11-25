@@ -5,11 +5,6 @@ import { Heart } from 'lucide-react';
 import { myProfile } from '@/data/profiles';
 
 export const Home: React.FC = () => {
-  const myIdealType = {
-    code: 'ABAA',
-    label: '내 이상형 MBTI',
-  };
-
   return (
     <div className="min-h-screen bg-white flex flex-col items-center pt-24 px-4 pb-24">
       <Header title="홈" />
@@ -31,8 +26,8 @@ export const Home: React.FC = () => {
       <div className="flex items-center gap-2 mb-6">
         <div className="px-4 py-2 bg-primary/10 text-primary-dark rounded-full font-bold flex items-center gap-2 text-base shadow">
           <Heart size={16} className="text-primary" />
-          {myIdealType.label}
-          <span className="ml-2 text-primary font-extrabold">{myIdealType.code}</span>
+          내 LTI:
+          <span className="ml-2 text-primary font-extrabold">{myProfile.lti}</span>
         </div>
       </div>
 

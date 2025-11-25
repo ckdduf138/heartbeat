@@ -12,9 +12,9 @@ export const Chat = () => {
         <div className="max-w-md mx-auto">
           {/* DM 리스트 */}
           <div className="bg-white">
-            {chatRooms.map((room) => (
+            {chatRooms.map((room, id) => (
               <button
-                key={room.id}
+                key={id}
                 className="w-full flex items-center gap-4 px-5 py-4 focus:outline-none hover:bg-gray-50 transition group"
                 style={{ WebkitTapHighlightColor: 'transparent' }}
               >
