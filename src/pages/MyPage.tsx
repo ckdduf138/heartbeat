@@ -8,7 +8,7 @@ export const MyPage: React.FC = () => {
     <div className="min-h-screen bg-white">
       <Header title="마이페이지" />
       {/* 헤더 제거 */}
-      <div className="pt-16 pb-20 px-4 max-w-md mx-auto flex flex-col items-center">
+      <div className="pt-20 pb-20 px-4 max-w-md mx-auto flex flex-col items-center">
         {/* 프로필 이미지 */}
         <div className="w-28 h-28 rounded-full border-4 border-primary shadow-lg overflow-hidden mb-3">
           <img

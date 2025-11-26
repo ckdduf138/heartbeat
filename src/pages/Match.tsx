@@ -4,7 +4,7 @@ import { matches } from '@/data/matches';
 
 export const Match: React.FC = () => {
   return (
-    <div className="min-h-screen bg-white flex flex-col items-center pt-16 px-4 pb-24">
+    <div className="min-h-screen bg-white flex flex-col items-center pt-20 px-4 pb-24">
       <Header title="매칭" />
       <div className="w-full">
         <div className="max-w-md mx-auto">

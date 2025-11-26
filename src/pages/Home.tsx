@@ -6,7 +6,7 @@ import { myProfile } from '@/data/profiles';
 
 export const Home: React.FC = () => {
   return (
-    <div className="min-h-screen bg-white flex flex-col items-center pt-24 px-4 pb-24">
+    <div className="min-h-screen bg-white flex flex-col items-center pt-20 px-4 pb-24">
       <Header title="홈" />
       <div className="flex flex-col items-center mb-5">
         <div className="w-32 h-32 rounded-full border-4 border-primary shadow-lg overflow-hidden mb-3">
