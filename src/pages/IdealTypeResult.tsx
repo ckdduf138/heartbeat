@@ -24,9 +24,9 @@ const IdealTypeResult: React.FC = () => {
           {/* 결과 카드 */}
           <div className="card mb-6 bg-gradient-to-br from-primary to-primary-dark text-white border-0">
             <div className="text-center py-8">
-              <div className="text-7xl mb-4">{resultData?.emoji ?? '💖'}</div>
+              <div className="text-7xl mb-4">{resultData?.emoji}</div>
               <div className="text-3xl font-bold mb-2">{resultData?.code}</div>
-              <h2 className="text-2xl font-bold mb-4">{resultData?.name_ko?.replace(/^[^\w가-힣]+\s*/, '')}</h2>
+              <h2 className="text-2xl font-bold mb-4">{resultData?.name_ko}</h2>
               <p className="text-white/90 text-base leading-relaxed">
                 {resultData?.description_ko}
               </p>
