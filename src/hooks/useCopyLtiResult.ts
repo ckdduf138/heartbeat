@@ -5,10 +5,7 @@ export function useCopyLtiResult() {
   const { getLtiInfo } = useLocalAnswers();
 
   const copyLtiResult = async () => {
-    // 항상 최신 결과만 복사: 클립보드 초기화 후 복사
-    try {
-      await navigator.clipboard.writeText('');
-    } catch {}
+    // 빌드할 결과 문자열
     const ltiInfo = getLtiInfo();
     const now = new Date();
     const pad = (n: number) => n.toString().padStart(2, '0');
@@ -23,7 +20,43 @@ export function useCopyLtiResult() {
         result += answerText + '\n';
       });
     }
-    await navigator.clipboard.writeText(result.trim());
+    // 복사: navigator.clipboard 우선, 실패 시 textarea+execCommand 폴백 사용
+    const copyText = async (text: string) => {
+      // 우선 modern clipboard API
+      try {
+        if (navigator.clipboard && typeof navigator.clipboard.writeText === 'function') {
+          await navigator.clipboard.writeText(text);
+          return true;
+        }
+      } catch (e) {
+        // ignore and fallback
+      }
+
+      // 폴백: textarea + execCommand
+      try {
+        const textarea = document.createElement('textarea');
+        // iOS에서 복사 가능하도록 textarea 스타일 설정
+        textarea.value = text;
+        // move element out of viewport
+        textarea.style.position = 'fixed';
+        textarea.style.left = '-9999px';
+        textarea.style.top = '0';
+        document.body.appendChild(textarea);
+        textarea.focus();
+        textarea.select();
+        textarea.setSelectionRange(0, textarea.value.length);
+        const successful = document.execCommand('copy');
+        document.body.removeChild(textarea);
+        return successful;
+      } catch (e) {
+        return false;
+      }
+    };
+
+    const ok = await copyText(result.trim());
+    if (!ok) {
+      try { navigator.clipboard.writeText(result.trim()); } catch {};
+    }
   };
   return { copyLtiResult };
 }

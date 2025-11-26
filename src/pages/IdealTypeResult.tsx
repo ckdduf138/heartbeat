@@ -20,11 +20,21 @@ const IdealTypeResult: React.FC = () => {
     <div className="min-h-screen bg-gray-50 animate-fade-in relative">
       <Header title="테스트 결과" />
       <div className="pt-14 pb-20 px-4">
-        <div className="max-w-md mx-auto pt-6 animate-slide-up">
+        <div className="max-w-md mx-auto py-6 animate-slide-up">
           {/* 결과 카드 */}
           <div className="card mb-6 bg-gradient-to-br from-primary to-primary-dark text-white border-0">
-            <div className="text-center py-8">
-              <div className="text-7xl mb-4">{resultData?.emoji}</div>
+            <div className="text-center py-4">
+              <div className="text-7xl mb-4">
+                {resultData?.icon &&
+                  <div className="w-[120px] h-[120px] mx-auto rounded-full bg-white flex items-center justify-center overflow-hidden shadow">
+                    <img
+                      src={`/assets/lti/${resultData.icon}`}
+                      alt={resultData.name_ko || resultData.code}
+                      className="w-full h-full object-contain"
+                    />
+                  </div>
+                }
+              </div>
               <div className="text-3xl font-bold mb-2">{resultData?.code}</div>
               <h2 className="text-2xl font-bold mb-4">{resultData?.name_ko}</h2>
               <p className="text-white/90 text-base leading-relaxed">
@@ -68,3 +78,4 @@ const IdealTypeResult: React.FC = () => {
 };
 
 export default IdealTypeResult;
+export {};
