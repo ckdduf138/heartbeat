@@ -10,30 +10,45 @@ import Loader from '@/components/common/Loader';
 import { questions } from '@/data/questions';
 import { calculateLtiResult } from '@/data/ltiData';
 
+import { useLocalAnswers } from '@/hooks/useLocalAnswers';
 export const IdealTypeTest: React.FC = () => {
   const navigate = useNavigate();
   const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [answers, setAnswers] = useState<Record<string, number>>({});
+  const [answers, setAnswers] = useState<number[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const { saveLtiInfo } = useLocalAnswers();
 
-  const handleAnswer = (value: string, weight: number) => {
-    const newAnswers = { ...answers, [value]: (answers[value] || 0) + weight };
-    setAnswers(newAnswers);
+  const handleAnswer = (optionIndex: number) => {
+    setAnswers(prev => {
+      const arr = Array.from({ length: questions.length }, (_, i) => prev[i] ?? 0);
+      arr[currentQuestion] = optionIndex;
 
-    if (currentQuestion < questions.length - 1) {
-      setCurrentQuestion(currentQuestion + 1);
-    } else {
-      setIsLoading(true);
-      const resultData = calculateLtiResult({
-        H_O: newAnswers["H"] >= newAnswers["O"] ? "H" : "O",
-        M_S: newAnswers["M"] >= newAnswers["S"] ? "M" : "S",
-        D_I: newAnswers["D"] >= newAnswers["I"] ? "D" : "I",
-        A_E: newAnswers["A"] >= newAnswers["E"] ? "A" : "E",
-      });
-      setTimeout(() => {
-        navigate(`/idealTypeResult?result=${resultData?.code || ''}`);
-      }, 2000);
-    }
+      if (currentQuestion < questions.length - 1) {
+        setCurrentQuestion(currentQuestion + 1);
+      } else {
+        setIsLoading(true);
+        // 결과 계산은 최신 answers 사용
+        const selectedValues = arr.map((idx, qIdx) => {
+          const opt = questions[qIdx].options[idx - 1];
+          return opt ? opt.value : '';
+        });
+        const resultData = calculateLtiResult({
+          H_O: selectedValues.filter(v => v === "H").length >= selectedValues.filter(v => v === "O").length ? "H" : "O",
+          M_S: selectedValues.filter(v => v === "M").length >= selectedValues.filter(v => v === "S").length ? "M" : "S",
+          D_I: selectedValues.filter(v => v === "D").length >= selectedValues.filter(v => v === "I").length ? "D" : "I",
+          A_E: selectedValues.filter(v => v === "A").length >= selectedValues.filter(v => v === "E").length ? "A" : "E",
+        });
+        // 검사 결과를 로컬스토리지에 저장 (ltiType, answers만)
+        saveLtiInfo({
+          ltiType: resultData?.code || '',
+          answers: arr,
+        });
+        setTimeout(() => {
+          navigate(`/idealTypeResult?result=${resultData?.code || ''}`);
+        }, 2000);
+      }
+      return arr;
+    });
   };
 
   const goBack = () => {
@@ -84,7 +99,7 @@ export const IdealTypeTest: React.FC = () => {
               {questions[currentQuestion].options.map((option, index) => (
                 <button
                   key={index}
-                  onClick={() => handleAnswer(option.value, option.weight)}
+                  onClick={() => handleAnswer(index + 1)}
                   className="w-full p-6 bg-gray-50 hover:bg-gradient-to-r hover:from-primary/10 hover:to-accent/10 rounded-2xl transition-all duration-200 hover:shadow-lg active:scale-98 border-2 border-transparent hover:border-primary/20 group"
                 >
                   <div className="flex items-center gap-4">

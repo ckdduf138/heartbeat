@@ -1,9 +1,15 @@
 import { Header } from '@/components/layout/Header';
 import { myProfile } from '@/data/profiles';
 import { LogOut, Bell, Edit, Settings } from 'lucide-react';
+import { useCopyLtiResult } from '@/hooks/useCopyLtiResult';
 // import { Header } from '@/components/layout/Header';
 
 export const MyPage: React.FC = () => {
+  const { copyLtiResult } = useCopyLtiResult();
+  const handleCopyProfile = () => {
+    copyLtiResult();
+  };
+
   return (
     <div className="min-h-screen bg-white">
       <Header title="마이페이지" />
@@ -39,7 +45,10 @@ export const MyPage: React.FC = () => {
         </div>
         {/* 주요 기능 버튼들 */}
         <div className="flex flex-col gap-3 w-full mt-2">
-          <button className="w-full py-3 rounded-full bg-primary/90 text-white font-bold shadow flex items-center justify-center gap-2 transition hover:scale-105 active:scale-95">
+          <button
+            className="w-full py-3 rounded-full bg-primary/90 text-white font-bold shadow flex items-center justify-center gap-2 transition hover:scale-105 active:scale-95"
+            onClick={handleCopyProfile}
+          >
             <Edit size={20} className="text-white" /> 프로필 편집
           </button>
           <button className="w-full py-3 rounded-full bg-primary/10 text-primary-dark font-bold shadow flex items-center justify-center gap-2 transition hover:bg-primary/20 active:scale-95">
