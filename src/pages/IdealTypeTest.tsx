@@ -40,11 +40,19 @@ export const IdealTypeTest: React.FC = () => {
         D_I: selectedValues.filter(v => v === "D").length >= selectedValues.filter(v => v === "I").length ? "D" : "I",
         A_E: selectedValues.filter(v => v === "A").length >= selectedValues.filter(v => v === "E").length ? "A" : "E",
       });
+
+      if (resultData?.icon) {
+        const fullPath = `/assets/lti/${resultData.icon}`;
+        const img = new window.Image();
+        img.src = fullPath;
+      }
+
       // 검사 결과를 로컬스토리지에 저장 (ltiType, answers만)
       saveLtiInfo({
         ltiType: resultData?.code || '',
         answers: answersRef.current,
       });
+
       setTimeout(() => {
         navigate(`/idealTypeResult?result=${resultData?.code || ''}`);
       }, 2000);
