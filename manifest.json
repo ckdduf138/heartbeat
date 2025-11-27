@@ -7,15 +7,15 @@
   "theme_color": "#3ED4BE",
   "description": "설레는 만남을 위한 소개팅 앱 - Heartbeat",
   "icons": [
-    {
-      "src": "/icons/icon-192x192.png",
+{
+      "src": "/icon-192x192.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "/icons/icon-512x512.png",
-      "sizes": "512x512",
-      "type": "image/png"
+      "src": "/intertwine_symbol.svg",
+      "sizes": "any", 
+      "type": "image/svg+xml"
     }
   ]
 }
