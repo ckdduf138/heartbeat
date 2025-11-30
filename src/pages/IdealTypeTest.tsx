@@ -16,8 +16,6 @@ export const IdealTypeTest: React.FC = () => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const answersRef = useRef<number[]>(Array(questions.length).fill(0));
   const [isLoading, setIsLoading] = useState(false);
-  const [preloadUrls, setPreloadUrls] = useState<string[] | undefined>(undefined);
-  const [pendingResultCode, setPendingResultCode] = useState<string>('');
   const { saveLtiInfo } = useLocalAnswers();
 
   const handleAnswer = (optionIndex: number) => {
@@ -44,18 +42,13 @@ export const IdealTypeTest: React.FC = () => {
         A_E: selectedValues.filter(v => v === "A").length >= selectedValues.filter(v => v === "E").length ? "A" : "E",
       });
 
-      // 준비할 이미지(결과 아이콘)를 세팅해서 Loader로 전달
-      const preloadUrls: string[] = [];
-      if (resultData?.icon) {
-        preloadUrls.push(`/assets/lti/${resultData.icon}`);
-      }
-
       // 검사 결과를 로컬스토리지에 저장 (ltiType, answers만)
       saveLtiInfo({ ltiType: resultData?.code || '', answers: answersRef.current });
 
-      // Loader가 읽어갈 수 있도록 상태에 저장
-      setPreloadUrls(preloadUrls);
-      setPendingResultCode(resultData?.code || '');
+      // 이전 동작과 동일하게 간단히 로더를 보여준 뒤 내비게이트
+      setTimeout(() => {
+        navigate(`/idealTypeResult?result=${resultData?.code || ''}`);
+      }, 2000);
     }
   };
 
@@ -71,16 +64,7 @@ export const IdealTypeTest: React.FC = () => {
     <div className="min-h-screen bg-gray-50 relative">
       {isLoading && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/40">
-          <Loader
-            urls={preloadUrls}
-            onReady={() => {
-              // navigate when Loader reports images ready
-              setIsLoading(false);
-              setPreloadUrls(undefined);
-              navigate(`/idealTypeResult?result=${pendingResultCode}`);
-            }}
-            minDuration={600}
-          />
+          <Loader />
         </div>
       )}
       

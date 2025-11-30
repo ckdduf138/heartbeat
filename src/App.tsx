@@ -1,6 +1,4 @@
 import { useState, useEffect } from 'react';
-import usePreloadImages from '@/hooks/usePreloadImages';
-import { ltiData } from '@/data/ltiData';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { Layout } from '@/components/layout';
 import { Splash } from '@/components/common';
@@ -31,11 +29,7 @@ function InnerApp() {
     prepareApp();
   }, []);
 
-  // 비차단으로 아이콘을 미리 로드해서 결과 페이지 이동 시 재요청을 줄임
-  usePreloadImages(
-    ltiData.lti_types.map(t => `/assets/lti/${t.icon}`),
-    { strict: false }
-  );
+  // NOTE: 이미지 프리로드는 Splash에서만 수행하도록 변경했습니다.
 
   useEffect(() => {
     if (isIdealTypeRoute) {

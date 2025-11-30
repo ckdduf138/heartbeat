@@ -1,18 +1,29 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Heart } from 'lucide-react';
+import usePreloadImages from '@/hooks/usePreloadImages';
+import { ltiData } from '@/data/ltiData';
 
 export const Splash = () => {
   const [isAnimating, setIsAnimating] = useState(true);
   const navigate = useNavigate();
+  const icons = ltiData.lti_types.map(t => `/assets/lti/${t.icon}`);
+  const { loaded } = usePreloadImages(icons, { strict: false });
+  const [minPassed, setMinPassed] = useState(false);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsAnimating(false);
-      setTimeout(() => navigate('/home', { replace: true }), 300);
-    }, 2000);
+    const minMs = 2000;
+    const timer = setTimeout(() => setMinPassed(true), minMs);
     return () => clearTimeout(timer);
-  }, [navigate]);
+  }, []);
+
+  useEffect(() => {
+    if (minPassed && loaded) {
+      setIsAnimating(false);
+      const t = setTimeout(() => navigate('/home', { replace: true }), 300);
+      return () => clearTimeout(t);
+    }
+  }, [minPassed, loaded, navigate]);
 
   return (
     <div
