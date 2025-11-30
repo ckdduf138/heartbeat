@@ -16,6 +16,8 @@ export const IdealTypeTest: React.FC = () => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const answersRef = useRef<number[]>(Array(questions.length).fill(0));
   const [isLoading, setIsLoading] = useState(false);
+  const [preloadUrls, setPreloadUrls] = useState<string[] | undefined>(undefined);
+  const [pendingResultCode, setPendingResultCode] = useState<string>('');
   const { saveLtiInfo } = useLocalAnswers();
 
   const handleAnswer = (optionIndex: number) => {
@@ -24,6 +26,7 @@ export const IdealTypeTest: React.FC = () => {
       answersRef.current = Array.from({ length: questions.length }, (_, i) => answersRef.current[i] ?? 0);
     }
     answersRef.current[currentQuestion] = optionIndex;
+    // answersRef is updated synchronously above, so UI can read it immediately
 
     if (currentQuestion < questions.length - 1) {
       setCurrentQuestion(currentQuestion + 1);
@@ -41,21 +44,18 @@ export const IdealTypeTest: React.FC = () => {
         A_E: selectedValues.filter(v => v === "A").length >= selectedValues.filter(v => v === "E").length ? "A" : "E",
       });
 
+      // 준비할 이미지(결과 아이콘)를 세팅해서 Loader로 전달
+      const preloadUrls: string[] = [];
       if (resultData?.icon) {
-        const fullPath = `/assets/lti/${resultData.icon}`;
-        const img = new window.Image();
-        img.src = fullPath;
+        preloadUrls.push(`/assets/lti/${resultData.icon}`);
       }
 
       // 검사 결과를 로컬스토리지에 저장 (ltiType, answers만)
-      saveLtiInfo({
-        ltiType: resultData?.code || '',
-        answers: answersRef.current,
-      });
+      saveLtiInfo({ ltiType: resultData?.code || '', answers: answersRef.current });
 
-      setTimeout(() => {
-        navigate(`/idealTypeResult?result=${resultData?.code || ''}`);
-      }, 2000);
+      // Loader가 읽어갈 수 있도록 상태에 저장
+      setPreloadUrls(preloadUrls);
+      setPendingResultCode(resultData?.code || '');
     }
   };
 
@@ -71,7 +71,16 @@ export const IdealTypeTest: React.FC = () => {
     <div className="min-h-screen bg-gray-50 relative">
       {isLoading && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/40">
-          <Loader />
+          <Loader
+            urls={preloadUrls}
+            onReady={() => {
+              // navigate when Loader reports images ready
+              setIsLoading(false);
+              setPreloadUrls(undefined);
+              navigate(`/idealTypeResult?result=${pendingResultCode}`);
+            }}
+            minDuration={600}
+          />
         </div>
       )}
       
@@ -104,23 +113,30 @@ export const IdealTypeTest: React.FC = () => {
               {questions[currentQuestion].question}
             </h2>
             <div className="space-y-4 mb-4">
-              {questions[currentQuestion].options.map((option, index) => (
-                <button
-                  key={index}
-                  onClick={() => handleAnswer(index + 1)}
-                  className="w-full p-6 bg-gray-50 hover:bg-gradient-to-r hover:from-primary/10 hover:to-accent/10 rounded-2xl transition-all duration-200 hover:shadow-lg active:scale-98 border-2 border-transparent hover:border-primary/20 group"
-                >
-                  <div className="flex items-center gap-4">
-                    <p className="flex-1 text-left text-lg font-medium text-gray-700 group-hover:text-gray-900">
-                      {option.text}
-                    </p>
-                    <ChevronRight
-                      size={20}
-                      className="text-gray-400 group-hover:text-primary transition-colors"
-                    />
-                  </div>
-                </button>
-              ))}
+              {questions[currentQuestion].options.map((option, index) => {
+                const isSelected = answersRef.current[currentQuestion] === index + 1;
+                return (
+                  <button
+                    key={index}
+                    onClick={() => handleAnswer(index + 1)}
+                    className={`w-full p-6 rounded-2xl transition-all duration-200 hover:shadow-lg active:scale-98 group ${
+                      isSelected
+                        ? 'bg-primary/10 border-2 border-primary'
+                        : 'bg-gray-50 border-2 border-transparent hover:bg-gradient-to-r hover:from-primary/10 hover:to-accent/10 hover:border-primary/20'
+                    }`}
+                  >
+                    <div className="flex items-center gap-4">
+                      <p className={`flex-1 text-left text-lg font-medium ${isSelected ? 'text-primary' : 'text-gray-700 group-hover:text-gray-900'}`}>
+                        {option.text}
+                      </p>
+                      <ChevronRight
+                        size={20}
+                        className={`transition-colors ${isSelected ? 'text-primary' : 'text-gray-400 group-hover:text-primary'}`}
+                      />
+                    </div>
+                  </button>
+                );
+              })}
             </div>
             {currentQuestion > 0 && (
               <button
