@@ -8,6 +8,7 @@ import { Chat } from '@/pages/Chat';
 import { MyPage } from '@/pages/MyPage';
 import { IdealTypeTest } from '@/pages/IdealTypeTest';
 import IdealTypeResult from '@/pages/IdealTypeResult';
+import AllLtiTypes from '@/pages/AllLtiTypes';
 
 
 function InnerApp() {
@@ -63,6 +64,7 @@ function InnerApp() {
       <Route path="/idealtype" element={<IdealTypeTest />} />
       <Route path="/ideal-type" element={<IdealTypeTest />} />
       <Route path="/idealTypeResult" element={<IdealTypeResult />} />
+      <Route path="/all-lti-types" element={<AllLtiTypes />} />
     </Routes>
   );
 }

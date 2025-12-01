@@ -69,6 +69,13 @@ const IdealTypeResult: React.FC = () => {
             >
               이상형 찾으러 가기
             </Button>
+            <Button
+              variant="accent"
+              fullWidth
+              onClick={() => navigate('/all-lti-types')}
+            >
+              모든 LTI 보러가기
+            </Button>
           </div>
         </div>
       </div>
