@@ -52,15 +52,6 @@ export const questions: Question[] = [
     ]
   },
   {
-    category: "데이트 기준",
-    flow: "장소 선택",
-    question: "데이트 장소를 정할 때 선호하는 스타일은?",
-    options: [
-      { text: "편하게 가까운 곳이면 좋아", value: "H", weight: 2 },
-      { text: "핫플이라면 거리 상관 없음!", value: "O", weight: 2 }
-    ]
-  },
-  {
     category: "약속 장소",
     flow: "데이터 동선",
     question: "만약 데이트 약속을 잡는다면, 어디가 더 편한가요?",
@@ -117,15 +108,6 @@ export const questions: Question[] = [
     options: [
       { text: "함께 즐기는 편이에요", value: "M", weight: 2 },
       { text: "각자 취미를 존중해요", value: "S", weight: 2 }
-    ]
-  },
-  {
-    category: "계획 주도",
-    flow: "계획/주도",
-    question: "여행이나 약속 계획은 보통 누가 세우나요?",
-    options: [
-      { text: "제가 계획하는 편이에요", value: "D", weight: 2 },
-      { text: "상대가 하거나 함께 정해요", value: "I", weight: 2 }
     ]
   }
 ];
