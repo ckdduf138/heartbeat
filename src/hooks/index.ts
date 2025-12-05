@@ -63,3 +63,9 @@ export const useDebounce = <T,>(value: T, delay: number): T => {
 
   return debouncedValue;
 };
+
+export { useCopyLtiResult } from './useCopyLtiResult';
+export { useFlattenImage } from './useFlattenImage';
+export { useLocalAnswers } from './useLocalAnswers';
+export { usePreloadImages } from './usePreloadImages';
+export { useTestNavigation } from './useTestNavigation';
