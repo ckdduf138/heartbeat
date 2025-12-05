@@ -3,12 +3,22 @@ import { useNavigate } from 'react-router-dom';
 import { Heart } from 'lucide-react';
 import usePreloadImages from '@/hooks/usePreloadImages';
 import { ltiData } from '@/data/ltiData';
+import { matches } from '@/data/matches';
+import { myProfile } from '@/data/profiles';
 
 export const Splash = () => {
   const [isAnimating, setIsAnimating] = useState(true);
   const navigate = useNavigate();
-  const icons = ltiData.lti_types.map(t => `/assets/lti/${t.icon}`);
-  const { loaded } = usePreloadImages(icons, { strict: false });
+  
+  // 모든 이미지 URL 수집
+  const ltiIcons = ltiData.lti_types.map(t => `/assets/lti/${t.icon}`);
+  const questionImages = Array.from({ length: 10 }, (_, i) => `/assets/questions/q${i + 1}.png`);
+  const matchImages = matches.map(m => m.image);
+  const profileImages = [myProfile.image];
+  
+  const allImages = [...ltiIcons, ...questionImages, ...matchImages, ...profileImages];
+  
+  const { loaded } = usePreloadImages(allImages, { strict: false });
   const [minPassed, setMinPassed] = useState(false);
 
   useEffect(() => {

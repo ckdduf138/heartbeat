@@ -93,6 +93,29 @@ export const IdealTypeTest: React.FC = () => {
           </div>
 
           <div className="card mb-6 animate-slide-up">
+            {questions[currentQuestion].image && (
+              questions[currentQuestion].objectFit === 'contain' ? (
+                <div className="w-full mb-6 rounded-2xl overflow-hidden border border-gray-200">
+                  <img
+                    src={questions[currentQuestion].image}
+                    alt={questions[currentQuestion].category}
+                    className="w-full h-auto"
+                  />
+                </div>
+              ) : (
+                <div className={`w-full overflow-hidden rounded-2xl mb-6 shadow-sm ${
+                  questions[currentQuestion].aspectRatio === '4:3' ? 'aspect-[4/3]' :
+                  questions[currentQuestion].aspectRatio === '1:1' ? 'aspect-square' :
+                  'aspect-video'
+                }`}>
+                  <img
+                    src={questions[currentQuestion].image}
+                    alt={questions[currentQuestion].category}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              )
+            )}
             <h2 className="text-2xl font-bold text-gray-900 mb-6 leading-relaxed">
               {questions[currentQuestion].question}
             </h2>

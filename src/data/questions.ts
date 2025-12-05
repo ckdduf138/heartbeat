@@ -8,6 +8,9 @@ export type Question = {
   category: string;
   flow: string;
   question: string;
+  image?: string;
+  aspectRatio?: '16:9' | '4:3' | '1:1';
+  objectFit?: 'cover' | 'contain';
   options: QuestionOption[];
 };
 
@@ -16,6 +19,8 @@ export const questions: Question[] = [
     category: "선호 연령",
     flow: "연애 대상 선호",
     question: "연상, 연하, 동갑 중 어떤 타입이 더 편하신가요?",
+    image: "/assets/questions/q1.png",
+    aspectRatio: "4:3",
     options: [
       { text: "연상", value: "A", weight: 2 },
       { text: "연하", value: "E", weight: 2 },
@@ -27,6 +32,8 @@ export const questions: Question[] = [
     category: "관계 이미지",
     flow: "연애에서 떠오르는 이미지",
     question: "연애를 할 때, 먼저 떠오르는 이미지는 무엇인가요?",
+    image: "/assets/questions/q2.png",
+    aspectRatio: "4:3",
     options: [
       { text: "편안함, 안정감", value: "A", weight: 2 },
       { text: "설레고 자극적인 감정", value: "E", weight: 2 },
@@ -37,6 +44,9 @@ export const questions: Question[] = [
     category: "첫 만남",
     flow: "첫 만남 주도권",
     question: "호감 있는 사람과 첫 만남을 잡는다면?",
+    image: "/assets/questions/q3.png",
+    aspectRatio: "4:3",
+    objectFit: "contain",
     options: [
       { text: "내가 먼저!", value: "D", weight: 2 },
       { text: "상대가 먼저!", value: "I", weight: 2 }
@@ -46,6 +56,8 @@ export const questions: Question[] = [
     category: "데이트 성향",
     flow: "주말/활동",
     question: "주말 데이트는 보통 집에서 쉬나요, 밖에서 활동하나요?",
+    image: "/assets/questions/q4.png",
+    objectFit: "contain",
     options: [
       { text: "집에서 쉬는 편이에요", value: "H", weight: 2 },
       { text: "밖에서 활동하는 편이에요", value: "O", weight: 2 }
@@ -55,6 +67,7 @@ export const questions: Question[] = [
     category: "약속 장소",
     flow: "데이터 동선",
     question: "만약 데이트 약속을 잡는다면, 어디가 더 편한가요?",
+    image: "/assets/questions/q5.png",
     options: [
       { text: "내가 있는 곳(집·학교·동네) 근처", value: "H", weight: 2 },
       { text: "상대와 중간 지점 또는 회사 근처", value: "O", weight: 2 }
@@ -64,6 +77,7 @@ export const questions: Question[] = [
     category: "중요 기준",
     flow: "연애에서 가장 큰 기준",
     question: "연애에서 가장 크게 보는 기준은 무엇인가요?",
+    image: "/assets/questions/q6.png",
     options: [
       { text: "외적 조건(외모·가정 등)", value: "A", weight: 1 },
       { text: "성격 궁합", value: "M", weight: 2 },
@@ -75,6 +89,7 @@ export const questions: Question[] = [
     category: "대화 주제",
     flow: "공유하고 싶은 대화",
     question: "연인과 가장 자주 나누고 싶은 대화 주제는?",
+    image: "/assets/questions/q7.png",
     options: [
       { text: "미래 계획·진로 고민", value: "M", weight: 2 },
       { text: "마음속 고민·감정 이야기", value: "I", weight: 2 },
@@ -86,6 +101,8 @@ export const questions: Question[] = [
     category: "비호감 포인트",
     flow: "정 떨어지는 포인트",
     question: "연애할 때 '정 떨어지는 포인트'는 무엇인가요?",
+    image: "/assets/questions/q8.png",
+    objectFit: "contain",
     options: [
       { text: "문신·담배·피어싱", value: "D", weight: 1 },
       { text: "감정 쓰레기통", value: "I", weight: 2 },
@@ -96,6 +113,8 @@ export const questions: Question[] = [
     category: "만남 주기",
     flow: "만남 빈도",
     question: "이상적인 만남 주기는 어떤가요?",
+    image: "/assets/questions/q9.png",
+    objectFit: "contain",
     options: [
       { text: "매일이라도 좋다!", value: "M", weight: 2 },
       { text: "주 1회 딱 좋아!", value: "S", weight: 2 }
@@ -105,6 +124,8 @@ export const questions: Question[] = [
     category: "취미 공유",
     flow: "취미/공유",
     question: "연인과 취미를 함께 즐기는 편인가요, 각자 유지하나요?",
+    image: "/assets/questions/q10.png",
+    aspectRatio: "4:3",
     options: [
       { text: "함께 즐기는 편이에요", value: "M", weight: 2 },
       { text: "각자 취미를 존중해요", value: "S", weight: 2 }
