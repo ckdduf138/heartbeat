@@ -10,45 +10,19 @@ export const useTestNavigation = () => {
   const answersRef = useRef<number[]>(Array(questions.length).fill(0));
   const [isLoading, setIsLoading] = useState(false);
   const { saveLtiInfo } = useLocalAnswers();
-  const [animationClass, setAnimationClass] = useState('');
-  const [isAnimating, setIsAnimating] = useState(false);
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
 
-  const move_time = 200;
-
   const moveToNext = () => {
-    setIsAnimating(true);
-    setAnimationClass('slide-out-left');
-
-    setTimeout(() => {
-      const nextQuestion = currentQuestion + 1;
-      setCurrentQuestion(nextQuestion);
-      // 다음 문제의 이전 답변 복원
-      setSelectedOption(answersRef.current[nextQuestion] || null);
-      setAnimationClass('slide-in-right');
-      setTimeout(() => {
-        setAnimationClass('');
-        setIsAnimating(false);
-      }, move_time);
-    }, move_time);
+    const nextQuestion = currentQuestion + 1;
+    setCurrentQuestion(nextQuestion);
+    setSelectedOption(answersRef.current[nextQuestion] || null);
   };
 
   const moveToPrevious = () => {
-    if (currentQuestion > 0 && !isAnimating) {
-      setIsAnimating(true);
-      setAnimationClass('slide-out-right');
-
-      setTimeout(() => {
-        const prevQuestion = currentQuestion - 1;
-        setCurrentQuestion(prevQuestion);
-        // 이전 문제의 답변 복원
-        setSelectedOption(answersRef.current[prevQuestion] || null);
-        setAnimationClass('slide-in-left');
-        setTimeout(() => {
-          setAnimationClass('');
-          setIsAnimating(false);
-        }, move_time);
-      }, move_time);
+    if (currentQuestion > 0) {
+      const prevQuestion = currentQuestion - 1;
+      setCurrentQuestion(prevQuestion);
+      setSelectedOption(answersRef.current[prevQuestion] || null);
     }
   };
 
@@ -80,8 +54,6 @@ export const useTestNavigation = () => {
   };
 
   const handleAnswer = (optionIndex: number) => {
-    if (isAnimating) return;
-
     if (selectedOption === optionIndex) {
       if (answersRef.current.length !== questions.length) {
         answersRef.current = Array.from({ length: questions.length }, (_, i) => answersRef.current[i] ?? 0);
@@ -103,7 +75,6 @@ export const useTestNavigation = () => {
   return {
     currentQuestion,
     isLoading,
-    animationClass,
     selectedOption,
     progress,
     handleAnswer,

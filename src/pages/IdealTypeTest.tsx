@@ -13,7 +13,6 @@ export const IdealTypeTest: React.FC = () => {
   const {
     currentQuestion,
     isLoading,
-    animationClass,
     selectedOption,
     progress,
     handleAnswer,
@@ -44,7 +43,10 @@ export const IdealTypeTest: React.FC = () => {
             progress={progress} 
           />
 
-          <div className={`bg-white rounded-2xl p-5 shadow-[0_1px_3px_rgba(0,0,0,0.08)] border border-black/[0.04] transition-all duration-200 mb-6 ${animationClass}`}>
+          <div 
+            key={currentQuestion}
+            className="bg-white rounded-2xl p-5 shadow-[0_1px_3px_rgba(0,0,0,0.08)] border border-black/[0.04] transition-all duration-200 mb-6 animate-slide-up"
+          >
             <QuestionImage
               image={question.image}
               objectFit={question.objectFit}
