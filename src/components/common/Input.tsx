@@ -14,7 +14,7 @@ export const Input = ({ label, error, className = '', ...props }: InputProps) =>
         </label>
       )}
       <input
-        className={`input-field ${error ? 'border-red-500' : ''} ${className}`}
+        className={`w-full px-4 py-3.5 border-[1.5px] rounded-xl transition-all duration-200 bg-gray-50 text-[15px] focus:border-primary focus:outline-none focus:bg-white focus:ring-4 focus:ring-primary/10 ${error ? 'border-red-500' : 'border-gray-300'} ${className}`}
         {...props}
       />
       {error && (

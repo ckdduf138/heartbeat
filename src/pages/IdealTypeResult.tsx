@@ -22,7 +22,7 @@ const IdealTypeResult: React.FC = () => {
       <div className="pt-14 pb-20 px-4">
         <div className="max-w-md mx-auto py-6 animate-slide-up">
           {/* 결과 카드 */}
-          <div className="card mb-6 bg-gradient-to-br from-primary to-primary-dark text-white border-0">
+          <div className="bg-white rounded-2xl p-5 shadow-[0_1px_3px_rgba(0,0,0,0.08)] transition-all duration-200 mb-6 bg-gradient-to-br from-primary to-primary-dark text-white border-0">
             <div className="text-center py-4">
               <div className="text-7xl mb-4">
                 {resultData?.icon &&
@@ -44,7 +44,7 @@ const IdealTypeResult: React.FC = () => {
           </div>
 
           {/* 특징 */}
-          <div className="card mb-6">
+          <div className="bg-white rounded-2xl p-5 shadow-[0_1px_3px_rgba(0,0,0,0.08)] border border-black/[0.04] transition-all duration-200 mb-6">
             <h3 className="font-bold text-lg mb-4 text-gray-900">
               당신이 원하는 이상형의 특징
             </h3>

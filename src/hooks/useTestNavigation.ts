@@ -14,15 +14,17 @@ export const useTestNavigation = () => {
   const [isAnimating, setIsAnimating] = useState(false);
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
 
-  const move_time = 300;
+  const move_time = 200;
 
   const moveToNext = () => {
     setIsAnimating(true);
     setAnimationClass('slide-out-left');
 
     setTimeout(() => {
-      setCurrentQuestion(currentQuestion + 1);
-      setSelectedOption(null);
+      const nextQuestion = currentQuestion + 1;
+      setCurrentQuestion(nextQuestion);
+      // 다음 문제의 이전 답변 복원
+      setSelectedOption(answersRef.current[nextQuestion] || null);
       setAnimationClass('slide-in-right');
       setTimeout(() => {
         setAnimationClass('');
@@ -37,8 +39,10 @@ export const useTestNavigation = () => {
       setAnimationClass('slide-out-right');
 
       setTimeout(() => {
-        setCurrentQuestion(currentQuestion - 1);
-        setSelectedOption(null);
+        const prevQuestion = currentQuestion - 1;
+        setCurrentQuestion(prevQuestion);
+        // 이전 문제의 답변 복원
+        setSelectedOption(answersRef.current[prevQuestion] || null);
         setAnimationClass('slide-in-left');
         setTimeout(() => {
           setAnimationClass('');

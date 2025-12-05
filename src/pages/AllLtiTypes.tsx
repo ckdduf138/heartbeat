@@ -12,7 +12,7 @@ const AllLtiTypes: React.FC = () => {
       <div className="pt-14 pb-20 px-4">
         <div className="max-w-4xl mx-auto py-6 animate-slide-up">
           {/* 설명 */}
-          <div className="card mb-6 bg-gradient-to-br from-primary to-primary-dark text-white border-0">
+          <div className="bg-white rounded-2xl p-5 shadow-[0_1px_3px_rgba(0,0,0,0.08)] transition-all duration-200 mb-6 bg-gradient-to-br from-primary to-primary-dark text-white border-0">
             <div className="text-center">
               <h2 className="text-2xl font-bold mb-2">16가지 연애 유형</h2>
               <p className="text-white/90 text-sm leading-relaxed">
@@ -26,7 +26,7 @@ const AllLtiTypes: React.FC = () => {
             {ltiData.lti_types.map((type) => (
               <div
                 key={type.code}
-                className="card cursor-pointer hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
+                className="bg-white rounded-2xl p-5 shadow-[0_1px_3px_rgba(0,0,0,0.08)] border border-black/[0.04] transition-all duration-300 cursor-pointer hover:shadow-[0_4px_12px_rgba(0,0,0,0.12)] hover:-translate-y-1"
                 onClick={() => navigate(`/idealTypeResult?result=${type.code}`)}
               >
                 <div className="flex items-start gap-4">
