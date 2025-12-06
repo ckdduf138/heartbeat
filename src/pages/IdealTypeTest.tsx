@@ -36,7 +36,7 @@ export const IdealTypeTest: React.FC = () => {
       />
       
       <div className="pt-14 pb-20 px-4">
-        <div className="max-w-md mx-auto pt-6 pb-20">
+        <div className="max-w-md mx-auto pt-6 pb-12">
           <ProgressBar 
             current={currentQuestion + 1} 
             total={questions.length} 
