@@ -54,8 +54,8 @@ export const questions: Question[] = [
   },
   {
     category: "데이트 성향",
-    flow: "주말/활동",
-    question: "주말 데이트는 보통 집에서 쉬나요, 밖에서 활동하나요?",
+    flow: "데이트 활동",
+    question: "데이트는 보통 집에서 쉬나요, 밖에서 활동하나요?",
     image: "/assets/questions/q4.png",
     objectFit: "contain",
     options: [
